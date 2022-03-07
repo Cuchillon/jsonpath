@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
+    }
+}
+
+plugins {
+    id 'java-library'
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+group 'com.ferick'
+description = 'jsonpath'
+version '1.0-SNAPSHOT'
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.description,
+                'Implementation-Version': project.version)
+    }
+}
+
+shadowJar {
+    baseName 'jsonpath'
+    classifier 'lib'
+    version = 0.1
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.0'
+    implementation 'com.google.code.gson:gson:2.9.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
